@@ -64,7 +64,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(GAMEDEV)\glew-1.13.0\include;$(GAMEDEV)\Bengine;$(GAMEDEV)\glm-0.9.7.1;$(GAMEDEV)\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(GAMEDEV)\glew-1.13.0\lib\Release\Win32;$(GAMEDEV)\_Projects\ZombieGame\ZombieGame\Debug;$(GAMEDEV)\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(GAMEDEV)\glew-1.13.0\lib\Release\Win32;$(GAMEDEV)\_Projects\ZombieGame\Debug;$(GAMEDEV)\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
