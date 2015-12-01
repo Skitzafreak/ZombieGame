@@ -23,4 +23,3 @@ private:
 	float _detectRadius;
 	SoldierState _state;
 };
-
