@@ -6,7 +6,7 @@ class Zombie : public Agent
 {
 public:
     Zombie();
-    ~Zombie();
+	virtual ~Zombie();
 
     void init(float speed, glm::vec2 pos);
 
@@ -14,7 +14,6 @@ public:
                         std::vector<Human*>& humans,
                         std::vector<Zombie*>& zombies);
 private:
-
     Human* getNearestHuman(std::vector<Human*>& humans);
 };
 

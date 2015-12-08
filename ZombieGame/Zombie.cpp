@@ -30,7 +30,7 @@ void Zombie::update(const std::vector<std::string>& levelData,
 
     // If we found a human, move towards him
     if (closestHuman != nullptr) {
-        // Get the direction vector twoards the player
+        // Get the direction vector towards the player
         glm::vec2 direction = glm::normalize(closestHuman->getPosition() - _position);
         _position += direction * _speed;
     }

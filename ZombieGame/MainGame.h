@@ -87,6 +87,7 @@ private:
     GameState _gameState;
 
 	/// New variables
-	bool spawnSoldiers, soldiersSpawned;
+	bool _soldiersSpawned;
+	float _timeElapsed;
 };
 

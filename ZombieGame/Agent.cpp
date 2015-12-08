@@ -12,6 +12,10 @@ Agent::~Agent()
 {
 }
 
+void Agent::update(const std::vector<std::string>& levelData, std::vector<Human*>& humans, std::vector<Zombie*>& zombies)
+{
+}
+
 bool Agent::collideWithLevel(const std::vector<std::string>& levelData) {
 
     std::vector<glm::vec2> collideTilePositions;

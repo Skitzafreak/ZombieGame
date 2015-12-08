@@ -26,8 +26,8 @@ MainGame::MainGame()  :
     _player(nullptr),
     _numHumansKilled(0),
     _numZombiesKilled(0),
-	spawnSoldiers(true),
-	soldiersSpawned(false) {
+	_soldiersSpawned(false),
+	_timeElapsed(0){
     // Empty
 }
 
@@ -131,9 +131,10 @@ void MainGame::gameLoop() {
         fpsLimiter.begin();
 
         checkVictory();
-
-		if (spawnSoldiers)
+		if (_timeElapsed > 100 && !_soldiersSpawned)
 			initSoldiers();
+		else
+			_timeElapsed++;
 
         processInput();
        
@@ -375,6 +376,7 @@ void MainGame::initSoldiers()
 {
 	Soldier* temp = new Soldier();
 	temp->init(SOLDIER_SPEED, _levels[_currentLevel]->getStartPlayerPos(), &_bullets, _levels[_currentLevel]->getSoldierPath());
+	temp->addGun(new Gun("Magnum", 10, 1, 0.01f, 30, 20.0f));
 	_humans.push_back(temp);
-	spawnSoldiers = false;
+	_soldiersSpawned = true;
 }
