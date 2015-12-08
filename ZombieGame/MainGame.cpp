@@ -376,7 +376,7 @@ void MainGame::initSoldiers()
 {
 	Soldier* temp = new Soldier();
 	temp->init(SOLDIER_SPEED, _levels[_currentLevel]->getStartPlayerPos(), &_bullets, _levels[_currentLevel]->getSoldierPath());
-	temp->addGun(new Gun("Magnum", 10, 1, 0.01f, 30, 20.0f));
+	temp->addGun(new Gun("Magnum", 15, 1, 0.01f, 50, 20.0f));
 	_humans.push_back(temp);
 	_soldiersSpawned = true;
 }
