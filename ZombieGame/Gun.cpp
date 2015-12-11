@@ -28,7 +28,20 @@ void Gun::update(bool isMouseDown, const glm::vec2& position, const glm::vec2& d
         _frameCounter = 0;
     }
 }
+std::string Gun::getName()
+{
+	return _name;
+}
 
+int Gun::getAmmo()
+{
+	return _ammo;
+}
+
+void Gun::addAmmo(int ammo)
+{
+	_ammo += ammo;
+}
 void Gun::fire(const glm::vec2& direction, const glm::vec2& position, std::vector<Bullet>& bullets) {
 
     static std::mt19937 randomEngine(time(nullptr));
