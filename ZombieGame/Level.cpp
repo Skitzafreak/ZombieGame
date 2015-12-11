@@ -80,6 +80,14 @@ Level::Level(const std::string& fileName) {
                     _levelData[y][x] = '.'; /// So we dont collide with a Z
                     _zombieStartPositions.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
                     break;
+				case 'A':
+					_levelData[y][x] = '.';
+					_ammoStartPositions.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+					break;
+				case 'U':
+					_levelData[y][x] = '.';
+					_powerUPstartPositions.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+					break;
                 case '.':
                     break;
                 default:
