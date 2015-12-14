@@ -57,7 +57,7 @@ void Soldier::update(const std::vector<std::string>& levelData, std::vector<Huma
 	else if (_state == SoldierState::ATTACK)
 	{
 		glm::vec2 direction = glm::normalize(_target->getPosition() - _position);
-		glm::vec2 firePosition = normalize(_position, _target->getPosition(), AGENT_RADIUS*1.5f);
+		glm::vec2 firePosition = normalize(_position+AGENT_RADIUS, _target->getPosition()+AGENT_RADIUS, AGENT_RADIUS*1.5f);
 
 		_gun->update(true, firePosition, direction, *_bullets);
 
