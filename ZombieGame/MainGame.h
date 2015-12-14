@@ -54,6 +54,9 @@ private:
     /// Renders the game
     void drawGame();
 
+	/// New functions
+	void initSoldiers();
+
     /// Member Variables
     Bengine::Window _window; ///< The game window
     
@@ -82,5 +85,9 @@ private:
     int _numZombiesKilled; ///< Zombies killed by player
 
     GameState _gameState;
+
+	/// New variables
+	bool _soldiersSpawned;
+	float _timeElapsed;
 };
 

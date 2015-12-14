@@ -17,7 +17,7 @@ public:
 
     virtual void update(const std::vector<std::string>& levelData,
                         std::vector<Human*>& humans,
-                        std::vector<Zombie*>& zombies) = 0;
+                        std::vector<Zombie*>& zombies);
 
     bool collideWithLevel(const std::vector<std::string>& levelData);
 
@@ -30,6 +30,8 @@ public:
 
     glm::vec2 getPosition() const { return _position; }
 
+	int getType() const { return _type;  }
+
 protected:
 
     void checkTilePosition(const std::vector<std::string>& levelData,
@@ -41,7 +43,8 @@ protected:
     
     glm::vec2 _position;
     Bengine::Color _color;
+	float _health;
     float _speed;
-    float _health;
+	int _type;
 };
 

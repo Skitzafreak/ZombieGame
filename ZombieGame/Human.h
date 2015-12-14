@@ -14,7 +14,7 @@ public:
                         std::vector<Human*>& humans,
                         std::vector<Zombie*>& zombies);
 
-private:
+protected:
     glm::vec2 _direction;
     int _frames;
 };

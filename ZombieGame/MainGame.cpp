@@ -11,9 +11,11 @@
 
 #include "Gun.h"
 #include "Zombie.h"
+#include "Soldier.h"
 
 const float HUMAN_SPEED = 1.0f;
 const float ZOMBIE_SPEED = 1.3f;
+const float SOLDIER_SPEED = 2.5f;
 const float PLAYER_SPEED = 5.0f;
 
 MainGame::MainGame()  :
@@ -23,7 +25,9 @@ MainGame::MainGame()  :
     _fps(0),
     _player(nullptr),
     _numHumansKilled(0),
-    _numZombiesKilled(0) {
+    _numZombiesKilled(0),
+	_soldiersSpawned(false),
+	_timeElapsed(0){
     // Empty
 }
 
@@ -127,6 +131,10 @@ void MainGame::gameLoop() {
         fpsLimiter.begin();
 
         checkVictory();
+		if (_timeElapsed > 100 && !_soldiersSpawned)
+			initSoldiers();
+		else
+			_timeElapsed++;
 
         processInput();
        
@@ -362,4 +370,13 @@ void MainGame::drawGame() {
 
     // Swap our buffer and draw everything to the screen!
     _window.swapBuffer();
+}
+
+void MainGame::initSoldiers()
+{
+	Soldier* temp = new Soldier();
+	temp->init(SOLDIER_SPEED, _levels[_currentLevel]->getStartPlayerPos(), &_bullets, _levels[_currentLevel]->getSoldierPath());
+	temp->addGun(new Gun("Magnum", 15, 1, 0.01f, 50, 20.0f));
+	_humans.push_back(temp);
+	_soldiersSpawned = true;
 }
