@@ -24,7 +24,9 @@ public:
     bool collideWithAgent(Agent* agent);
 
     void draw(Bengine::SpriteBatch& _spriteBatch);
-    
+   
+	void draw(Bengine::SpriteBatch& _spriteBatch, std::string texturePath);
+
     // Return true if we died
     bool applyDamage(float damage);
 

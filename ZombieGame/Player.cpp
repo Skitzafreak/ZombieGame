@@ -35,6 +35,12 @@ void Player::addGun(Gun* gun) {
     }
 }
 
+Gun* Player::getGun()
+{
+	return _guns.at(_currentGunIndex);
+}
+
+
 void Player::update(const std::vector<std::string>& levelData,
                     std::vector<Human*>& humans,
                     std::vector<Zombie*>& zombies) {

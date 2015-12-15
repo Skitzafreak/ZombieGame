@@ -9,6 +9,8 @@
 #include "Player.h"
 #include "Level.h"
 #include "Bullet.h"
+#include "Ammo.h"
+#include "PowerUP.h"
 
 class Zombie;
 
@@ -80,6 +82,8 @@ private:
     std::vector<Human*> _humans; ///< Vector of all humans
     std::vector<Zombie*> _zombies; ///< Vector of all zombies
     std::vector<Bullet> _bullets;
+	std::vector<Ammo*> _ammo;
+	std::vector<PowerUP*> _powerUPs;
 
     int _numHumansKilled; ///< Humans killed by player
     int _numZombiesKilled; ///< Zombies killed by player

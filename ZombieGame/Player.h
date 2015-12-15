@@ -16,6 +16,7 @@ public:
     void init(float speed, glm::vec2 pos, Bengine::InputManager* inputManager, Bengine::Camera2D* camera, std::vector<Bullet>* bullets);
 
     void addGun(Gun* gun);
+	Gun* getGun();
 
     void update(const std::vector<std::string>& levelData, std::vector<Human*>& humans, std::vector<Zombie*>& zombies) override;
 private:
@@ -28,4 +29,5 @@ private:
     std::vector<Bullet>* _bullets;
 
 };
+
 

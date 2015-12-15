@@ -13,6 +13,7 @@
 #include "Zombie.h"
 #include "Soldier.h"
 
+
 const float HUMAN_SPEED = 1.0f;
 const float ZOMBIE_SPEED = 1.3f;
 const float SOLDIER_SPEED = 2.5f;
@@ -91,6 +92,23 @@ void MainGame::initLevel() {
     std::uniform_int_distribution<int> randX(2, _levels[_currentLevel]->getWidth() - 2);
     std::uniform_int_distribution<int> randY(2, _levels[_currentLevel]->getHeight() - 2);
 
+
+	//Add ammo caches
+	const std::vector<glm::vec2>& ammoPositions = _levels[_currentLevel]->getAmmoStartPositions();
+	for (int i = 0; i < ammoPositions.size(); i++)
+	{
+		_ammo.push_back(new Ammo);
+		_ammo.back()->init(ammoPositions[i]);
+	}
+
+	//Add powerUP tokens/Upgrades
+	const std::vector<glm::vec2>& powerUPPositions = _levels[_currentLevel]->getPowerUPStartPosition();
+	for (int i = 0; i < powerUPPositions.size(); i++)
+	{
+		_powerUPs.push_back(new PowerUP);
+		_powerUPs.back()->init(powerUPPositions[i]);
+	}
+
     // Add all the random humans
     for (int i = 0; i < _levels[_currentLevel]->getNumHumans(); i++) {
         _humans.push_back(new Human);
@@ -105,11 +123,14 @@ void MainGame::initLevel() {
         _zombies.back()->init(ZOMBIE_SPEED, zombiePositions[i]);
     }
 
+
+
+
     // Set up the players guns
     const float BULLET_SPEED = 20.0f;
-    _player->addGun(new Gun("Magnum", 10, 1, 0.01f, 30, BULLET_SPEED));
-    _player->addGun(new Gun("Shotgun", 30, 12, 0.2f, 4, BULLET_SPEED));
-    _player->addGun(new Gun("MP5", 2, 1, 0.1f, 20, BULLET_SPEED));
+    _player->addGun(new Gun("Magnum", 10, 1, 0.01f, 30, BULLET_SPEED, 100, 1));
+    _player->addGun(new Gun("Shotgun", 30, 12, 0.2f, 4, BULLET_SPEED, 12*10, 1));
+    _player->addGun(new Gun("MP5", 2, 1, 0.1f, 20, BULLET_SPEED, 250, 1));
 }
 
 void MainGame::initShaders() {
@@ -167,6 +188,7 @@ void MainGame::updateAgents() {
                            _zombies);
     }
 
+
     // Update Zombie collisions
     for (int i = 0; i < _zombies.size(); i++) {
         // Collide with other zombies
@@ -185,6 +207,21 @@ void MainGame::updateAgents() {
                 _humans.pop_back();
             }
         }
+		/*
+		// Collide with ammo caches
+		for (int j = 0; j < _ammo.size(); j++)
+		{
+			_zombies[i]->collideWithAgent(_ammo[j]);
+		}
+
+		//Collide with powerUP tokens
+		for (int j = 0; j < _powerUPs.size(); j++)
+		{
+			_zombies[i]->collideWithAgent(_powerUPs[j]);
+		}
+		*/
+
+
 
         // Collide with player
         if (_zombies[i]->collideWithAgent(_player)) {
@@ -200,10 +237,46 @@ void MainGame::updateAgents() {
         }
     }
 
+	//Player collides with ammo caches
+	for (int i = 0; i < _ammo.size(); i++)
+	{
+		if (_ammo[i]->collideWithAgent(_player))
+		{
+			_player->getGun()->addAmmo(50);
+			std::cout << "50 bullets added.\n" << std::endl;
+			std::cout << "Your " << _player->getGun()->getName() << " has " << _player->getGun()->getAmmo() << " bullets left.\n" << std::endl;
+			delete _ammo[i];
+			_ammo[i] = _ammo.back();
+			_ammo.pop_back();
+		}
+	}
+
+	//Player collides with an PowerUP token
+	for (int i = 0; i < _powerUPs.size(); i++)
+	{
+		if (_powerUPs[i]->collideWithAgent(_player))
+		{
+			_player->getGun()->upgrade();
+			std::cout << "Your " << _player->getGun()->getName() << " has been upgraded\n" << std::endl;
+			delete _powerUPs[i];
+			_powerUPs[i] = _powerUPs.back();
+			_powerUPs.pop_back();
+		}
+	}
+
     // Dont forget to update zombies
 }
 
 void MainGame::updateBullets() {
+
+	std::mt19937 randomEngine;
+	randomEngine.seed(time(nullptr));
+
+	std::uniform_int_distribution<int> rand(0, 9);
+
+	int number = rand(randomEngine);
+
+
     // Update and collide with world
     for (int i = 0; i < _bullets.size(); ) {
         // If update returns true, the bullet collided with a wall
@@ -227,6 +300,17 @@ void MainGame::updateBullets() {
                 // Damage zombie, and kill it if its out of health
                 if (_zombies[j]->applyDamage(_bullets[i].getDamage())) {
                     // If the zombie died, remove him
+					if (number > 8)
+					{
+						_powerUPs.push_back(new PowerUP);
+						_powerUPs.back()->init(_zombies[j]->getPosition());
+					}
+					else if (number < 2)
+					{
+						_ammo.push_back(new Ammo);
+						_ammo.back()->init(_zombies[j]->getPosition());
+					}
+
                     delete _zombies[j];
                     _zombies[j] = _zombies.back();
                     _zombies.pop_back();
@@ -344,6 +428,19 @@ void MainGame::drawGame() {
     // Begin drawing agents
     _agentSpriteBatch.begin();
 
+
+	// Draw ammo caches
+	for (int i = 0; i < _ammo.size(); i++)
+	{
+		_ammo[i]->draw(_agentSpriteBatch, "Textures/ammo.png");
+	}
+
+	//Draw PowerUP tokens
+	for (int i = 0; i < _powerUPs.size(); i++)
+	{
+		_powerUPs[i]->draw(_agentSpriteBatch, "Textures/upgrade.png");
+	}
+
     // Draw the humans
     for (int i = 0; i < _humans.size(); i++) {
         _humans[i]->draw(_agentSpriteBatch);
@@ -359,6 +456,8 @@ void MainGame::drawGame() {
         _bullets[i].draw(_agentSpriteBatch);
     }
 
+
+
     // End spritebatch creation
     _agentSpriteBatch.end();
 
@@ -371,6 +470,7 @@ void MainGame::drawGame() {
     // Swap our buffer and draw everything to the screen!
     _window.swapBuffer();
 }
+<<<<<<< HEAD
 
 void MainGame::initSoldiers()
 {
@@ -380,3 +480,5 @@ void MainGame::initSoldiers()
 	_humans.push_back(temp);
 	_soldiersSpawned = true;
 }
+=======
+>>>>>>> refs/remotes/origin/Dajh
