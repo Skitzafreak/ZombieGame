@@ -14,8 +14,12 @@ public:
                         std::vector<Human*>& humans,
                         std::vector<Zombie*>& zombies);
 
-protected:
+private:
     glm::vec2 _direction;
     int _frames;
+
+	//------------------------------------------------------------
+	Zombie* getNearestZombie(std::vector<Zombie*>& zombies);
+	//------------------------------------------------------------
 };
 
