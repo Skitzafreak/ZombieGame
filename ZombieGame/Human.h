@@ -17,5 +17,10 @@ public:
 private:
     glm::vec2 _direction;
     int _frames;
+	float _detectionRange;
+	glm::vec2 _escapeRoute;
+	int _sighted;
+	bool _inSight;
+	Zombie* getNearestZombie(std::vector<Zombie*>& zombies);
 };
 
