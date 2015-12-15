@@ -153,7 +153,7 @@ void Agent::collideWithTile(glm::vec2 tilePos) {
     if (xDepth > 0 && yDepth > 0) {
 
         // Check which collision depth is less
-        if (std::max(xDepth, 0.0f) < std::max(yDepth, 0.0f)) {
+        if (max(xDepth, 0.0f) < max(yDepth, 0.0f)) {
             // X collsion depth is smaller so we push in X direction
             if (distVec.x < 0) {
                 _position.x -= xDepth;

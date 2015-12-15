@@ -5,7 +5,12 @@
 #include <iostream>
 #include <ResourceManager.h>
 
+
+
 Level::Level(const std::string& fileName) {
+
+	m_pGraph = new NavGraph(false);
+
 
     std::ifstream file;
     file.open(fileName);
@@ -38,6 +43,8 @@ Level::Level(const std::string& fileName) {
     whiteColor.b = 255;
     whiteColor.a = 255;
 
+	int i = 0;
+	int w = 0;
     // Render all the tiles
     for (int y = 0; y < _levelData.size(); y++) {
         for (int x = 0; x < _levelData[y].size(); x++) {
@@ -81,7 +88,16 @@ Level::Level(const std::string& fileName) {
                     _zombieStartPositions.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
                     break;
                 case '.':
+					//NavGraphNode<>::NavGraphNode(0, Vector2D(x * TILE_WIDTH, y * TILE_WIDTH));// * or -    ??? check later
+					//m_pGraph->AddNode(NavGraphNode<>::NavGraphNode(i, Vector2D(x * TILE_WIDTH, y * TILE_WIDTH)));
+					//i++;
                     break;
+				case 'W':
+					//m_pGraph->AddNode(NavGraphNode<>::NavGraphNode(i, Vector2D(x * TILE_WIDTH, y * TILE_WIDTH)));
+					//i++;
+					//wavePoints[w] = i;
+					//w++;
+					break;
                 default:
                     std::printf("Unexpected symbol %c at (%d,%d)", tile, x, y);
                     break;
@@ -93,6 +109,18 @@ Level::Level(const std::string& fileName) {
 
 }
 
+void Level::buildGraph(){
+	int i = 0;
+	for (int y = 0; y < _levelData.size(); y++) {
+		for (int x = 0; x < _levelData[y].size(); x++) {
+			if (_levelData[x][y] = '.'){
+				m_pGraph->AddNode(NavGraphNode<>::NavGraphNode(i, Vector2D(x * TILE_WIDTH, y * TILE_WIDTH)));
+				i++;
+				//GraphHelper_AddAllNeighboursToGridNode();
+			}
+		}
+	}
+}
 
 Level::~Level()
 {

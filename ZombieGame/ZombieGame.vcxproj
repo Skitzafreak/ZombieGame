@@ -19,16 +19,24 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="AStar.h" />
+    <ClInclude Include="AStarHeuristicPolicies.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="GraphAlgorithms.h" />
+    <ClInclude Include="GraphEdgeTypes.h" />
+    <ClInclude Include="GraphNodeTypes.h" />
     <ClInclude Include="Gun.h" />
+    <ClInclude Include="HandyGraphFunctions.h" />
     <ClInclude Include="Human.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Soldier.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

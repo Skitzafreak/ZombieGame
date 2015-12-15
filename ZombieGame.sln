@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZombieGame", "ZombieGame\ZombieGame.vcxproj", "{5EE6DA3F-766A-44A4-8BC6-B76B8D88034B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C2387530-72B4-48C9-9740-1FA31EDF0496} = {C2387530-72B4-48C9-9740-1FA31EDF0496}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bengine", "..\..\Bengine\Bengine.vcxproj", "{C2387530-72B4-48C9-9740-1FA31EDF0496}"
 EndProject
