@@ -17,7 +17,7 @@ void Soldier::init(float speed, glm::vec2 pos, std::vector<Bullet>* bullets, std
 	_bullets = bullets;
 	_waypoints = waypoints;
 	_currentWaypoint = 0;
-	_detectRadius = 400.0f;
+	_detectRadius = 300.0f;
 	_shootRadius = 200.0f;
 	_state = SoldierState::ROAM;
 	_color.r = 255;

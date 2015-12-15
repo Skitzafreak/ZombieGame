@@ -131,7 +131,7 @@ void MainGame::gameLoop() {
         fpsLimiter.begin();
 
         checkVictory();
-		if (_timeElapsed > 100 && !_soldiersSpawned)
+		if (_timeElapsed > 450 && !_soldiersSpawned)
 			initSoldiers();
 		else
 			_timeElapsed++;
@@ -374,9 +374,12 @@ void MainGame::drawGame() {
 
 void MainGame::initSoldiers()
 {
-	Soldier* temp = new Soldier();
-	temp->init(SOLDIER_SPEED, _levels[_currentLevel]->getStartPlayerPos(), &_bullets, _levels[_currentLevel]->getSoldierPath());
-	temp->addGun(new Gun("Magnum", 15, 1, 0.01f, 50, 20.0f));
-	_humans.push_back(temp);
+	for (int i = 0; i < 4; i++)
+	{
+		Soldier* temp = new Soldier();
+		temp->init(SOLDIER_SPEED, _levels[_currentLevel]->getSoldierStartPositions().at(i), &_bullets, _levels[_currentLevel]->getSoldierPath().at(i));
+		temp->addGun(new Gun("Magnum", 15, 1, 0.01f, 50, 20.0f));
+		_humans.push_back(temp);
+	}
 	_soldiersSpawned = true;
 }

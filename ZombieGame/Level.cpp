@@ -38,6 +38,12 @@ Level::Level(const std::string& fileName) {
     whiteColor.b = 255;
     whiteColor.a = 255;
 
+	for (int i = 0; i < 4; i++)
+	{
+		std::vector<glm::vec2> temp;
+		_soldierPathWaypoints.emplace_back(temp);
+	}
+
     // Render all the tiles
     for (int y = 0; y < _levelData.size(); y++) {
         for (int x = 0; x < _levelData[y].size(); x++) {
@@ -80,9 +86,25 @@ Level::Level(const std::string& fileName) {
                     _levelData[y][x] = '.'; /// So we dont collide with a Z
                     _zombieStartPositions.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
                     break;
-				case 'W':
+				case 'S':
 					_levelData[y][x] = '.';
-					_soldierPathWaypoints.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+					_soldierStartPositions.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+					break;
+				case '1':
+					_levelData[y][x] = '.';
+					_soldierPathWaypoints[0].emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+					break;
+				case '2':
+					_levelData[y][x] = '.';
+					_soldierPathWaypoints[1].emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+					break;
+				case '3':
+					_levelData[y][x] = '.';
+					_soldierPathWaypoints[2].emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+					break;
+				case '4':
+					_levelData[y][x] = '.';
+					_soldierPathWaypoints[3].emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
 					break;
                 case '.':
                     break;
